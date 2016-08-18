@@ -1,0 +1,229 @@
+<!--
+Copyright (c) 2016 KeeeX SAS 
+
+This is an open source project available under the MIT license.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+-->
+<!Doctype html>
+<html>
+  <head>
+    <title>KeeeX Calendar</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <meta charset="UTF-8">
+
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/underscore/underscore.js"></script>
+    <script src="./node_modules/backbone/backbone.js"></script>
+    <script src="./node_modules/d3/d3.js"></script>
+
+    <script src="./js/calendar.js"></script>
+  </head>
+  
+  <script>
+    function _initContext(){
+      gui = require('nw.gui');
+      var window = gui.Window.get();
+      window.on('resize', updateUI);
+
+      initCalendarApp();
+
+      // Access the developper console without the toolbar
+      document.addEventListener('keypress', function(kpe){
+        if(kpe.charCode == 4 && kpe.ctrlKey){
+          window.showDevTools();
+        }
+      });
+
+      // When focused : 
+      // Set refresh rate to every 15s
+      // Force a refresh
+      window.on("focus", function( event ) {
+        if(!appFinishedInit) return;
+
+        updateCalendarData();
+
+        clearInterval(refreshDataInterval);
+        refreshDataInterval = setInterval(updateCalendarData, 15000);
+
+        console.log('focus'); 
+      }, true);
+
+      // When not focused
+      // Ser refreshg rate to every 5 mins
+      window.on("blur", function( event ) {
+        if(!appFinishedInit) return;
+
+        
+        clearInterval(refreshDataInterval);
+        refreshDataInterval = setInterval(updateCalendarData, 300000);
+
+        console.log('focus lost');
+      }, true);
+    }
+    
+
+  </script>
+
+  <body onload="_initContext()" id="holder">
+
+    <!-- Welcome corner -->
+    <div id="div_welcome">
+      <img id="img_keeexUserAvatar"/>
+      <b>KeeeX Calendar</b><br/>
+      Welcome back <span id="span_keeexUserName"></span><br />
+      <input type="button" class="button" id="btn_google" alt="Sign in with google" onclick="signInWithGoogle();" />
+    </div>
+
+    <!-- Event list -->
+    <div id="div_eventList">
+
+      <div id="div_eventListCheckBoxes">Filter: 
+        <input type="checkbox" id="cb_eventListToday" checked="true" onclick="updateEventListView()" />
+        <label class="nicecheckboxlabel" for="cb_eventListToday">Today</label>
+
+        <input type="checkbox" id="cb_eventListUpcoming" checked="true" onclick="updateEventListView()" />
+        <label class="nicecheckboxlabel" for="cb_eventListUpcoming">Upcoming</label>
+
+        <input type="checkbox" id="cb_eventListAll" onclick="updateEventListView()" />
+        <label class="nicecheckboxlabel" for="cb_eventListAll">All</label>
+      </div>
+
+      <div id="div_eventListContainer">
+        <div id="div_eventListTodayContainer">
+          <div class="eventcontainer_header">Today</div>
+          <div id="div_eventListToday" class="eventcontainer"></div>
+        </div>
+
+        <div id="div_eventListUpcomingContainer">
+          <div class="eventcontainer_header">Upcoming</div>
+          <div id="div_eventListUpcoming" class="eventcontainer"></div>
+        </div>
+
+        <div id="div_eventListAllContainer">
+          <div class="eventcontainer_header">All</div>
+          <div id="div_eventListAll" class="eventcontainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div id="div_calendar">
+      <div id="div_calendarHeader">
+        <div id="div_calendarMonthYearDisplay"></div>
+        <input type="button" class="button" id="btn_calendarPrevMonth" value="<" />
+        <input type="button" class="button" id="btn_calendarNextMonth" value=">" />
+        <input type="button" class="button" id="btn_calendarNow" value="Today" />
+        <input type="button" class="button" id="btn_NewEvent" value="New Event" onclick="showDialogNewEvent()" />
+        <div id="div_calendarDayNames"></div>
+      </div>
+      <div id="div_calendarContent"></div>
+    </div>
+
+    <!-- Time line -->
+    <div id="div_eventTimeLine">
+      <img id="img_timelineNow" src="./images/geotag.png" />
+    
+    </div>
+
+    <!-- Info popup -->
+    <div id="div_timeLineEventDetails">
+      <div id="div_timeLineEventDetailsEventName"></div>
+      <div id="div_timeLineEventDetailsDescription"></div>
+      <br />
+      <div id="div_timeLineEventDetailsInfo">
+        Date:  <span id="span_timeLineEventDetailsdate" class="eventDetail"></span><br />
+        KeeeX ID: <span id="span_timeLineEventDetailsIDX" class="eventDetail"></span><br />
+        Participants : <span id="span_timeLineEventDetailsAvatar"></span>
+      </div>
+    </div>
+
+    <!-- Hider -->
+    <div id="div_hider"></div>
+
+    <!-- Simple dialog -->
+    <div id="div_dialog">
+      <div id="div_dialogTitleBar"></div>
+      <div id="div_dialogContent"></div>
+      <div class="div_dialogButton">
+        <input type="button" id="btn_dialogOK" class="button" value="OK" />
+        <input type="button" id="btn_dialogCancel" class="button" value="Cancel" />
+      </div>
+    </div>
+
+    <!-- New/Edit event dialog -->
+    <div id="div_createEditEventDialog" class="bigDialog">
+      <div id="div_createEditEventDialogTitle" class="bigDialog_title"></div>
+      <div class="bigDialog_content">
+
+        <div class="bigDialog_secondaryColumn">
+
+          <div id="bigDialog_sharedTo">
+            <h3 style="margin-top:0px;">Shared with...</h3>
+            <div id="bigDialog_shared"></div>
+          </div>
+
+          <div id="bigDialog_shareWith">
+            <h3 style="margin-top:0px;">Share this event with...</h3>
+            <input type="text" name="searchParticipant" class="searchParticipant" placeholder="Filter...">
+            <div class="dialog_possibleShares"></div>
+          </div>
+        </div>
+
+        <div class="bigDialog_mainColumn">
+          <input type="text" class="bigDialog_bigInput" id="input_eventTitle" name="input_eventTitle" placeholder="Event Title" required="required" pattern=".+">
+          <br />
+          <br />
+          <input type="text" class="bigDialog_input" id="input_eventStartDate" name="input_eventStartDate" placeholder="yyyy/mm/dd" maxlength="10" size="10" pattern="[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}">
+          <input type="text" class="bigDialog_input" id="input_eventStartTime" name="input_eventStartTime" placeholder="hh:mm" maxlength="5" size="5" pattern="[0-9]{1,2}:[0-9]{1,2}">
+          to 
+          <input type="text" class="bigDialog_input" id="input_eventEndDate" name="input_eventEndDate" placeholder="yyyy/mm/dd" maxlength="10" size="10" pattern="[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}">
+          <input type="text" class="bigDialog_input" id="input_eventEndTime" name="input_eventEndTime" placeholder="hh:mm" maxlength="5" size="5" pattern="[0-9]{1,2}:[0-9]{1,2}">
+          <br />
+          <br />
+          <div id="bigDialog_errorsArea"></div>
+          
+          <label for="input_eventDescription">Event description :</label> <br />
+          <textarea type="text" class="bigDialog_eventDescriptionInput" id="input_eventDescription" name="input_eventDescription" rows="8" cols="50"></textarea><br />
+
+          <input type="text" id="input_eventID" name="input_eventID" style="display:none;"><br />
+
+          <div class="bigDialog_fixedBottom">
+            <input type="button" id="btn_createEditEventDialogOK" class="button" value="OK" />
+            <input type="button" id="btn_createEditEventDialogCancel" class="button" value="Cancel" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Share dialog -->
+    <div id="div_shareEventDialog" class="bigDialog">
+      <div id="div_shareEventDialogTitle" class="bigDialog_title">Share an event</div>
+      <div id="div_shareEventDialogContent" class="bigDialog_content">
+        <b>Event</b>: <span id="span_shareEventName"></span><br />
+        <br />
+        <b>Current participants</b>: <br />
+        <div id="div_shareEventCurrentParticipants"></div>
+
+        <b>Add participants</b>: <br />
+        <input type="text" name="searchParticipant" class="searchParticipant" placeholder="Filter...">
+        <div id="div_shareEventPossibleParticipantsToAdd" class="dialog_possibleShares"></div>  <br />
+
+        <input type="text" id="input_shareEventID" name="input_shareEventID" style="display:none;"><br />
+      </div>
+
+      <div class="div_dialogButton">
+        <input type="button" id="btn_shareEventDialogOK" class="button" value="OK" />
+        <input type="button" id="btn_shareEventDialogCancel" class="button" value="Cancel" />
+      </div>
+    </div>
+  </body>
+</html>

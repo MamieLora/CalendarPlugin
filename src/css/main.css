@@ -1,0 +1,626 @@
+/*
+Copyright (c) 2016 KeeeX SAS 
+
+This is an open source project available under the MIT license.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+*/
+
+body {
+	overflow: hidden;
+	-webkit-user-select: none;
+	font-family: 'OpenSans';
+}
+
+.oldEvent {
+	opacity: 0.3;
+}
+
+#btn_google {
+	background: url('./../images/btn_google_signin_light_normal_web.png') no-repeat;
+	width: 190px; 
+	height: 50px;
+	
+	background-repeat: no-repeat;
+}
+
+#btn_google:hover {
+	background: url('./../images/btn_google_signin_light_focus_web.png') no-repeat;
+}
+
+#btn_google:active {
+	background: url('./../images/btn_google_signin_light_pressed_web.png') no-repeat;
+}
+
+
+#btn_google:disabled {
+	background: url('./../images/btn_google_signin_light_disabled_web.png') no-repeat;
+}
+
+
+/*
+ * Welcome corner
+ */
+
+#div_welcome{
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	width: 280px;
+	height: 90px;
+}
+
+#img_keeexUserAvatar{
+	float:right;
+	width: 40px;
+	height: 40px;
+}
+
+/*
+ * Event list
+ */
+
+#div_eventList{
+	position: fixed;
+	width: 280px;
+	top: 110px;
+	bottom: 10px;
+	border: 1px solid silver;
+	background-color: #e5e5e5;
+}
+
+#div_eventListCheckBoxes{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 20px;
+}
+
+#div_eventListContainer{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 40px;
+	bottom: 0px;
+	overflow: auto;
+}
+
+div.eventcontainer_header{
+	text-indent: 5px;
+	border-bottom: 1px solid silver;
+	margin: 5px;
+	margin-top: 20px;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+div.eventcontainer{
+	position: relative;
+	text-align: center;
+}
+
+div.event_item{
+	position: relative;
+	height: 50px;
+	border-radius: 5px;
+	margin: 5px;
+	border: 1px dashed transparent;
+}
+
+div.event_item:hover{
+	border: 1px dashed white;
+}
+
+div.event_item_title{
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	right: 10px;
+	height: 20px;
+	display: inline-block;
+	text-align: left;
+	font-weight: bold;
+	pointer-events: none;
+	font-family: 'OpenSans';
+	font-size: 14px;
+	overflow: hidden;
+}
+
+div.event_item_idx{
+	position: absolute;
+	left: 10px;
+	bottom: 5px;
+	font-family: 'OpenSans';
+	font-size: 12px;
+	color: white;
+	pointer-events: none;
+}
+
+div.event_item_time{
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
+	font-family: monospace;
+	font-size: 12px;
+	color: white;
+	pointer-events: none;
+}
+
+label.nicecheckboxlabel{
+	font-family : 'OpenSans';
+	font-size:  13px;
+}
+
+/*
+ * Calendar
+ */
+
+#div_calendar{
+	position: fixed;
+	right: 10px;
+	top: 10px;
+	left: 310px;
+	height: 400px;
+	padding: 10px
+}
+
+#div_calendarHeader{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	height: 60px;
+	top: 0px;
+	background-color: #252344;
+}
+
+#div_calendarMonthYearDisplay{
+	margin-top: 10px;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+
+	font-weight: bold;
+}
+
+#btn_calendarPrevMonth{
+	position: absolute;
+	right: 60px;
+	top: 5px;
+}
+
+#btn_calendarNextMonth{
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+#btn_calendarNow{
+	position: absolute;
+	left: 10px;
+	top: 5px;
+}
+
+#btn_NewEvent{
+	position: absolute;
+	left: 90px;
+	top: 5px;
+}
+
+#div_calendarDayNames{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 40px;
+	bottom: 0px;
+	color: white;
+}
+
+#div_calendarContent{
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: #95a5a6;
+}
+
+div.calendarDayName{
+	width: 14%;
+	height: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+div.date{
+	position: absolute;
+	display: inline-block;
+	pointer-events: all;
+}
+
+div.date_date.today{
+	/*Today*/
+	background-color: #f39c12;
+}
+
+div.date.selected div.date_date{
+	/*Selected*/
+	background-color: #c0392b;
+}
+
+div.date.disabled div.date_date{
+	/*Other month*/
+	background-color: #bdc3c7;
+}
+
+div.date_date{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	text-indent: 5px;
+	font-family: monospace;
+	pointer-events : none;
+	border-top-left-radius: 5px;
+	/*border-top-right-radius: 5px;*/
+	background-color: #3498db;
+	font-weight: bold;
+}
+
+div.date_body{
+	position: absolute;
+	background-color: white;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+	top: 10px;
+}
+
+div.event_bullet{
+	position: absolute;
+	bottom: 3px;
+	left: 5px;
+	z-index: 20;
+}
+
+div.event_bullet_item{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-radius: 10px;
+	margin-right: 2px;
+	cursor: pointer;
+	border: 2px solid white;
+}
+
+div.event_bullet_item:hover{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-radius: 10px;
+	margin-right: 2px;
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+/*
+ * Timeline stuff
+ */
+
+#div_eventTimeLine{
+	position: absolute;
+	left: 310px;
+	right: 10px;
+	top: 440px;
+	bottom: 10px;
+	background-color: white;
+	border-bottom: 1px solid silver;
+	overflow: hidden;
+	-webkit-user-select: none;
+}
+
+#img_timelineNow{
+	position: absolute;	
+	width: 30px;
+	height: auto;
+}
+
+
+
+#div_timeLineEventDetails{
+	position: absolute;
+	border: 2px solid black;
+	width: 250px;
+	/*border-radius: 20px;*/
+	padding: 20px;
+	background-color: white;
+	z-index: 100;
+}
+
+#div_timeLineEventDetailsEventName{
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+#div_timeLineEventDetailsInfo {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	right: 20px;
+	color: #bdc3c7;
+	
+}
+
+#div_timeLineEventDetailsDescription {
+	overflow: auto;
+	top:50px;
+	bottom: 110px;
+	position: absolute;
+}
+
+#div_timeLineEventDetailsAvatar{
+	/*text-align: right;*/
+	/*margin-top: 10px;*/
+	/*float: right;*/
+	display: inline-block;
+}
+
+span.eventDetail{
+	/*font-family: monospace;*/
+	/*float: right;*/
+	color: black;
+}
+
+img.detail_avatar{
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	display : inline-block;
+}
+
+svg.timeLabel{
+	overflow: visible;
+	
+}
+
+svg.eventLabel{
+	overflow: visible;
+	stroke-width: 2px;
+}
+
+
+line.liveline{
+	stroke: silver;
+	stroke-width: 1px;
+}
+
+rect.timelinebar{
+	fill: silver;
+	fill-opacity: 0.5;
+}
+
+#timeLabelLeft{
+	overflow: visible;
+	text-transform: capitalize;
+}
+
+#timeLabelRight{
+	overflow: visible;
+	text-transform: capitalize;
+}
+
+
+
+/*=======DIALOG====================================*/
+
+#div_hider{
+	position:absolute;
+	z-index: 10000;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	background-color: black;
+	opacity:0.3;
+	visibility: hidden;
+}
+
+.bigDialog {
+	position:fixed;
+	left:50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+}
+
+.bigDialog_title{
+	position:fixed;
+	top:-1px;
+	left:0px;
+	width:100%;
+	height:30px;
+	
+	text-align:center;
+	font-size: 16px;
+	font-family: 'OpenSans';
+	color:white;
+	background-color: #2c3e50;	
+	line-height: 30px;
+}
+
+.bigDialog_content{
+	position:fixed;
+	top:30px;
+	bottom: 0px;
+	width:100%;
+
+	padding: 5px;
+}
+
+.bigDialog_bigInput {
+    font-size:20pt;
+    font-weight:bold;
+    width: 99%;
+}
+
+.bigDialog_input {
+    font-size:14pt;
+}
+
+.bigDialog_eventDescriptionInput {
+	font-size:15pt;
+    width: 99%;
+}
+
+
+.bigDialog_mainColumn {
+	height: 100%;
+	margin-right: 305px;
+	padding-right: 5px;
+	border-right: 2px dashed #bdc3c7;
+}
+
+.bigDialog_secondaryColumn {
+	float: right;
+	width: 300px;
+	height: 100%;
+	padding-left: 5px;
+	overflow-y: auto;
+}
+
+.bigDialog_fixedBottom{
+	position:fixed;
+	bottom:10px;
+}
+
+
+/* Create / edit dialog */
+
+#div_createEditEventDialog{
+	visibility: hidden;
+	width:85%;
+	height:65%;
+	z-index: 10000;
+	background-color: white;
+	border:1px solid #2c3e50;
+}
+
+#div_shareEventDialogContent{
+	overflow-y:scroll;
+}
+
+#div_shareEventPossibleParticipantsToAdd {
+	-webkit-column-count: 3;
+}
+
+/* Share dialog */
+
+#div_shareEventDialog{
+	visibility: hidden;
+	width:50%;
+	height:65%;
+	z-index: 10000;
+	background-color: white;
+	border:1px solid #2c3e50;
+}
+
+
+
+/* simple dialog */
+
+
+#div_dialog{
+	position:absolute;
+	visibility: hidden;
+	width:300px;
+	height:150px;
+	z-index: 10000;
+	margin:auto;
+	left:0px;
+	right:0px;
+	top:0px;
+	bottom:0px;
+	background-color: white;
+	border:1px solid black;
+	border-radius:3px;
+}
+
+#div_dialogTitleBar{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	height:30px;
+	
+	text-align:center;
+	font-size: 16px;
+	font-family: 'OpenSans';
+	color:white;
+	background-color: black;	
+	line-height: 30px;
+	
+}
+
+#div_dialogContent{
+	position:absolute;
+	top:30px;
+	bottom:30px;
+	left:0px;
+	right:0px;
+	line-height: 45px;
+	text-align: center;	
+}
+
+.div_dialogButton{
+	position:absolute;
+	left:0px;
+	right:0px;
+	height:30px;
+	bottom:10px;	
+	text-align:center;
+	border-radius:5px;
+}
+
+input.button{
+	border:none;
+	outline: none;	
+	color:white;
+	background-color: #7FBA00;	
+	height:30px;
+	line-height: 30px;
+	text-align: center;
+	display:inline-block;
+	cursor:default;
+	padding-left: 20px;
+	padding-right: 20px;	
+}
+
+input.button:hover:enabled{	
+	background-color: #99D41A;	
+}
+
+input.button:hover:enabled:active{	
+	background-color: #CCFF4D;	
+}
+
+input.button:disabled{	
+	background-color: darkgrey;
+	color : grey; 	
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../font/opensans/OpenSans-Regular.ttf');
+}
+
+.dirtyFix {
+	overflow-y: visible;
+}

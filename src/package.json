@@ -1,0 +1,35 @@
+{
+  "name": "keeex-calendar",
+  "title": "KeeeX Calendar",
+  "version": "0.16.5",
+  "description": "Keep you on-line with your events",
+  "plugin-icon": "images/icon.png",
+  "main": "main.html",
+  "single-instance": true,
+  "terms": "",
+  "icon": "images/default-avatar.png",
+  "author": "DANG Xuan Thong",
+  "license": "free",
+  "window": {
+    "toolbar": false,
+    "frame": true,
+    "width": 1370,
+    "height": 720,
+    "position": "center",
+    "resizable": true
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "backbone": "^1.3.3",
+    "chrono-node": "^1.2.3",
+    "d3": "^3.5.17",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^12.0.0",
+    "jquery": "^3.1.0",
+    "keeex-api": "^0.2.1",
+    "moment": "^2.13.0",
+    "path": "^0.12.7",
+    "request": "^2.72.0",
+    "underscore": "^1.8.3"
+  }
+}

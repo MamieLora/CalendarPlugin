@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{name}}</title>
+
+		<meta charset="UTF-8">
+		<meta name="author" content="{{author_name}}">
+		<meta name="keywords" content="{{author_idx}}">
+		<meta name="generator" content="KeeeX - https://keeex.me">
+		<meta name="generator" content="KeeeX Agenda Plugin">
+
+		<style type="text/css">
+			.container { width: 800px; margin: 0 auto; font-family: Helvetica,Arial,sans-serif; }
+			.title { color: darkblue; font-size: 22px; font-weight: bold; padding: 10px 0;}
+			.idx { color: lightgray; font-size: 14px; }
+			.description { color: dimgray; font-size: 14px; font-style: italic; padding: 0px 30px; text-align: justify;}
+			.body { color: dimgray; font-size: 15px; text-align: justify; padding: 10px 0;}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="title"><!--keeex name "-->{{name}}<!--" , {main} xeeek --></div>
+			<div class="description"><!--keeex prop "kx.description", "-->{{description}}<!--" xeeek --></div>
+			<div class="body"></div>
+			<div class="idx">{{author_idx}}</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{title-short}}</title>
+
+		<meta charset="UTF-8">
+		<meta name="author" content="Ludovic Poujol">
+		<meta name="keywords" content="xugep-bipur-dugun-bumov-cumop-gorep-momub-huput-fekyr-hubah-sysut-vusuc-losad-tukoc-fahan-gesac-poxox">
+		<meta name="generator" content="KeeeX - https://keeex.me">
+
+		<style type="text/css">
+			.container { width: 800px; margin: 0 auto; font-family: Helvetica,Arial,sans-serif; }
+			.title { color: darkblue; font-size: 22px; font-weight: bold; padding: 10px 0;}
+			.idx { color: lightgray; font-size: 14px; }
+			.description { color: dimgray; font-size: 14px; font-style: italic; padding: 0px 30px; text-align: justify;}
+			.body { color: dimgray; font-size: 15px; text-align: justify; padding: 10px 0;}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="title"><!--keeex name "-->Event cancelled<!--" , {main} xeeek --></div>
+			<div class="description"><!--keeex prop "kx.description", "--><!--" xeeek --></div>
+			<div class="body"></div>
+			<div class="idx">xugep-bipur-dugun-bumov-cumop-gorep-momub-huput-fekyr-hubah-sysut-vusuc-losad-tukoc-fahan-gesac-poxox</div>
+		</div>
+	</body>
+</html>
+<!--
+keeex self xugep-bipur-dugun-bumov-cumop-gorep-momub-huput-fekyr-hubah-sysut-vusuc-losad-tukoc-fahan-gesac-poxox , {main} xeeek
+keeex self 1Li3J8hYgLVEpkFEtWyDPjXkPeJruHyv9EyuoYC , {alg:sha224,enc:b58,recursive:1} xeeek
+keeex prop "kx.author", "renam-tybil-netyn-lonum-dahim-mynyv-rirav-tonen-nocaz-nelul-huril-samus-lihed-mogyc-fifod-tirup-guxar" xeeek
+keeex ref "roseh-rofac-fyluc-syzum-hyhyz-dezin-hegul-byzol-manuv-rysyt-goboh-zyvuf-guhoz-nyveh-rafuf-lofor-texyr" , {mine} xeeek
+keeex signer rerom-cityz-bivyc-ralav-bumon-mudyh-hocyr-pikyv-sysyz-cunat-gesiz-lipig-cozof-harif-sapor-gacaf-nixer xeeek
+keeex prop "kx.time", "Mon, 27 Jun 2016 12:33:56 GMT" xeeek
+keeex prop "kx.pattern", "%f_kx_$1-$2" xeeek
+keeex prop "kx.publickey", "12jVByECVtKztTqRE6YyQG8xNEdurhoP3m", {bitcoin} xeeek
+keeex protected "HKujNCCVo4JPTwvTVyWUnm2im1U0VYsjt4nzPnv3nh0JSMB6C5MXiyXdzRrDCJwOb!xGYkkA75wXIp0LdJYL9xA=" , {bitcoin} xeeek
+keeex ref "recag-muges-vocul-tuvan-ryhar-rovap-hizit-zaget-rurot-zekyz-kazur-ganed-rofeg-kemul-kolig-luput-byxir" xeeek
+
+-->
