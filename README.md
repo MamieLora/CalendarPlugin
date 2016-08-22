@@ -1,8 +1,6 @@
 # CalendarPlugin
 KeeeX plugin that extracts, display events in a calendar and gives you the ability to synchronize your events on Google Calendar.
 
-<< image >>
-
 ## Install
 You can directly download it through KeeeX Plugins Manager : KeeeX Calendar
 
