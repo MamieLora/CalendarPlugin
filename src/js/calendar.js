@@ -935,7 +935,7 @@ function getOAuthNewToken(oauth2Client, callback) {
 	var authWindow = gui.Window.open(authUrl);
 	authWindow.on('loaded', function() {
 
-		if(authWindow.window.location.pathname == "/o/oauth2/approval"){
+		if(authWindow.window.location.pathname.startsWith ("/o/oauth2/approval")){
 			if(authWindow.window.document.getElementById("access_denied")){
 				authWindow.close();
 				console.log("ACCESS DENIED...");
